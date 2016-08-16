@@ -22,19 +22,16 @@ angular.module('luttetubeApp')
         $rootScope.LS.init = false
 
         this.getTypes = function(item) {
-            console.log(item);
             $http({
                 method: 'GET',
                 url: CONFIG.HOST+"/api/"+item+"/types"
             }).then(function successCallback(response) {
-                console.log(response);
                 for (var i in response.data) {
                     type.push(response.data[i].type);
                 }
                 that.getPlace(item);
             }, function errorCallback(response) {
                 console.log(response);
-                $scope.error = response;
             });
         };
 
@@ -46,7 +43,7 @@ angular.module('luttetubeApp')
                 place = response.data;
                 that.getPlaylists(item);
             }, function errorCallback(response) {
-                $scope.error = response;
+                console.log(response);
             });
         };
 
@@ -75,7 +72,7 @@ angular.module('luttetubeApp')
                     that.getVideos();
                 }
             }, function errorCallback(response) {
-                $scope.error = response;
+                console.log(response);
             });
         }
 
@@ -92,10 +89,10 @@ angular.module('luttetubeApp')
                     $rootScope.LS.doc.videos = response.data;
                     that.getNumberLabel();
                 }, function errorCallback(response) {
-                    $scope.error = response;
+                console.log(response);
                 });
             }, function errorCallback(response) {
-                $scope.error = response;
+                console.log(response);
             });
         };
 
