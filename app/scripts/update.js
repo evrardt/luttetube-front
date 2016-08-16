@@ -24,7 +24,7 @@ angular.module('luttetubeApp')
         this.getTypes = function(item) {
             $http({
                 method: 'GET',
-                url: "http://localhost:3000/api/"+item+"/types"
+                url: CONFIG.HOST+"/api/"+item+"/types"
             }).then(function successCallback(response) {
                 for (var i in response.data) {
                     type.push(response.data[i].type);
@@ -38,7 +38,7 @@ angular.module('luttetubeApp')
         this.getPlace = function(item) {
             $http({
                 method: 'GET',
-                url: "http://localhost:3000/api/"+item+"/places"
+                url: CONFIG.HOST+"/api/"+item+"/places"
             }).then(function successCallback(response) {
                 place = response.data;
                 that.getPlaylists(item);
@@ -50,7 +50,7 @@ angular.module('luttetubeApp')
         this.getPlaylists = function(item) {
             $http({
                 method: 'GET',
-                url: "http://localhost:3000/api/"+item+"/playlists"
+                url: CONFIG.HOST+"/api/"+item+"/playlists"
             }).then(function successCallback(response) {
                 playlists = response.data;
                 if (item === "lutte") {
@@ -79,12 +79,12 @@ angular.module('luttetubeApp')
         this.getVideos = function() {
             $http({
                 method: 'GET',
-                url: "http://localhost:3000/api/lutte/videos"
+                url: CONFIG.HOST+"/api/lutte/videos"
             }).then(function successCallback(response) {
                 $rootScope.LS.lutte.videos = response.data;
                 $http({
                     method: 'GET',
-                    url: "http://localhost:3000/api/doc/videos"
+                    url: CONFIG.HOST+"/api/doc/videos"
                 }).then(function successCallback(response) {
                     $rootScope.LS.doc.videos = response.data;
                     that.getNumberLabel();
