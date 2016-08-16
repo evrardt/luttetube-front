@@ -1,0 +1,25 @@
+<div class="row bordered">
+  <h4 class="well well-sm">
+      <div class="navTitle">{{title}}</div>
+      <button back-button  class="btn btn-default btn-navTitle">Page précédente</button>
+      <a ng-href="#/add/{{type}}?id={{id}}" class="btn btn-default">Ajouter une vidéo à cette playlist</a>
+  </h4>
+  <div class="col-md-3 thumbBlock animate" ng-repeat="item in videos | orderBy:'item.publishedAt':true">
+    <a href="#/player/{{item.videoId}}" class="thumb">
+      <img ng-src="{{item.thumbnail}}">
+      <div>
+          <p class="playlist">{{item.title}}</p>
+          <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6"><div class="duration">{{item.duration}}</div></div>
+          </div>
+      </div>
+    </a>
+  </div>
+</div>
+<nav ng-show="previous || next">
+  <ul class="pager">
+    <li ng-show="previous"><a ng-href="#{{previous}}">Previous</a></li>
+    <li ng-show="next"><a ng-href="#{{next}}">Next</a></li>
+  </ul>
+</nav>

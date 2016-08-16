@@ -1,0 +1,22 @@
+<h4 class="well col-sm-offset-3 col-sm-6">Inscription</h4>
+<form ng-submit="register.register()" class="well col-sm-offset-3 col-sm-6">
+    <div class="form-group">
+        <label>Nom d'usage</label>
+        <input ng-model="name" type="text" placeholder="Entrez votre nom d'usage ici" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input ng-model="email" type="email" placeholder="Entrez votre email ici" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Mot de passe</label>
+        <input ng-model="password" type="password" placeholder="Entrez votre mot de passe ici" class="form-control">
+    </div>
+    <div
+        vc-recaptcha
+        key="'6LecrCcTAAAAAPQN-ax9LWHReDnQdcWsfbZKq-C-'"
+        ng-model="myFields.myRecaptchaResponse"
+    ></div>
+    <div class="g-recaptcha" data-sitekey=""></div><br/>
+    <button type="submit" class="btn btn-default">S'inscrire</button>
+</form>

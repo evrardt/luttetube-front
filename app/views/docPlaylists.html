@@ -1,0 +1,30 @@
+<div class="row bordered">
+  <h4 class="well well-sm">
+    <div class="navTitle">Catégories :</div>
+    <button type="button" ng-click="docPlaylists.selectType(item)" class="btn btn-default btn-filter-type btn-navTitle" ng-class="{active:LS.doc.typeFilter==item}" ng-repeat="item in typesDisplayed | orderBy:item">{{item}}</button>
+    <button class="btn btn-default btn-navTitle" ng-if="LS.doc.typeFilter != ''" type="button" ng-click="docPlaylists.allTypes()">Tout les types</button>
+  </h4>
+</div>
+<div class="row bordered">
+  <h4 class="well">Documentaires LutteTube</h4>
+  <div ng-if="(LS.doc.playlists | filter:{type:LS.doc.typeFilter}).length == 0">Aucun</div>
+  <div class="col-md-3 thumbBlock" ng-repeat="item in LS.doc.playlists | filter:{type:LS.doc.typeFilter}">
+    <a href="#/playlist/doc/{{item.id}}" class="thumb">
+      <img ng-src="{{item.thumbnail}}">
+      <span class="label label-default label-black countPlaylist">{{item.count}} vidéo<span ng-show="item.count>1">s</span></span>
+      <div class="textPlaylist">
+          <div ng-if="item.date" class="date">
+            <div class="month" ng-class="{monthly:item.monthly}">{{item.date | date:'MMM'}}</div>
+            <div ng-if="!item.monthly" class="day">{{item.date | date:'d'}}</div>
+          </div>
+          <div ng-class="{rightLabel:item.date}">
+            <div ng-if="item.date">
+              <div class="typeDated">{{item.type}}</div>
+            </div>
+            <div ng-if="!item.date" ng-class="{type: true, notDated: (item.monthly != false && item.monthly != true)}">{{item.type}}</div>
+            <div ng-if="item.place" ng-class="{place: true, notDated: (item.monthly != false && item.monthly != true)}">{{item.place}}</div>
+          </div>
+      </div>
+    </a>
+  </div>
+</div>

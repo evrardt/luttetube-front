@@ -1,0 +1,359 @@
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+body {
+  padding: 0;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 60px;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+  margin: 0px;
+  margin-bottom: 10px;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+.navbar-brand img {
+  max-width:100px; 
+  margin-top: -7px;
+}
+
+.navbar-default {
+  background-color: white;
+}
+
+.video-responsive{
+  overflow:hidden;
+  padding-bottom:56.25%;
+  position:relative;
+  height:0;
+}
+
+.video-responsive iframe{
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+
+.caption {
+  height: 100px;
+}
+
+.thumbBlock {
+  padding: 0px;
+}
+
+.row.bordered a.thumb {
+  border-right: 1px solid #e3e3e3;
+  display: block;
+}
+
+a.thumb p {
+  margin: 0px;
+  color: black;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-height: 70px;
+  text-align: left;
+  font-size: 14px;
+}
+
+a.thumb p.playlist {
+  font-size: 14px;
+  text-align: justify;
+}
+
+div.date {
+  background-image: url('../images/calendar.png');
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50px;
+  width: 50px;
+  display: inline-block;
+  margin: 4px;
+  margin-left: 8px;
+}
+
+div.date div.month {
+  padding-top: 4px;
+  font-size: 9px;
+  text-align: center;
+  color: white
+}
+
+div.month.ng-binding.monthly {
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 16px;
+}
+
+div.date div.day {
+  margin-top: 2px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+}
+
+div.typeDated {
+  color: black;
+  text-align: left;
+  font-size: 14px;
+}
+
+div.type {
+  color: black;
+}
+
+div.type.notDated {
+  margin-left: 14px;
+  margin-top: 7px;
+}
+
+div.place {
+  text-align: center;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+div.place.notDated {
+  margin-left: 14px;
+  height: 31px;
+}
+
+div.rightLabel div.place {
+  text-align: left;
+  padding-top: 0px;
+  margin-top: -3px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+div.place.notDated {
+  text-align: left;
+}
+
+a.thumb:hover {
+  background-color: rgba(50,50,50,0.1);
+  text-decoration: none;
+}
+
+a.thumb img {
+  width: 100%;
+  height: auto;
+}
+
+.more {
+  margin-left: 5px;
+}
+
+.row.bordered h4.well {
+  padding-left: 30px;
+  font-weight: normal;
+  margin: 0px;
+  border: none;
+  border-radius: 5px;
+  border-bottom: 1px solid #e3e3e3;
+  border-right: 1px solid #e3e3e3
+}
+
+.row.bordered {
+  border: 1px solid #e3e3e3;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.btn-filter-type {
+  margin-left: 5px;
+}
+
+.ngmap {
+  margin-bottom: 10px;
+}
+
+.rightLabel {
+  display:inline-block;
+  vertical-align: top;
+  padding-top: 7px;
+}
+
+div.duration {
+  color: black;
+  text-align: right;
+  margin-right: 7px;
+  margin-bottom: 7px;
+  margin-top: -4px;
+}
+
+div.typeIndex {
+  text-align: center;
+  color: black;
+  margin-top: 10px;
+  height: 34px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+div.navTitle {
+  font-weight: bold;
+  font-size: 16px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+button.btn-navTitle {
+  margin-top: -3px;
+}
+
+div.moviesIndex {
+  color: black;
+  padding: 7px;
+}
+
+.form-control.inline {
+  width: auto;
+  display: inline;
+}
+
+.animate {
+  opacity: 1;
+}
+
+.animate.ng-hide-add, .animate.ng-hide-remove {
+  transition: all linear 4s;
+}
+
+.animate.ng-hide {
+  display: none;
+  opacity: 0;
+}
+
+.navbar-right {
+   margin-right: 15px;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0    
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc 
+}
+.btn-tw{
+    color: #fff;
+    background-color:#55acee;
+}
+.btn-tw:hover{
+    color: #fff;
+    background-color:#59b5fa;
+}
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}
+
+.countPlaylist {
+  position: relative;
+  top: -30px;
+  left: 10px;
+  font-weight: normal;
+}
+
+.textPlaylist {
+  margin-top: -20px;
+}
+
+.label-black {
+  background-color: black;
+}

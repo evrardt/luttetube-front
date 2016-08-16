@@ -1,0 +1,13 @@
+<div class="row bordered">
+  <h4 class="well well-sm"><div class="navTitle">Films LutteTube</div></h4>
+  <div class="col-md-3 thumbBlock" ng-repeat="item in config.MOVIES | orderBy:'':true">
+    <a href="#/movies/{{item.label}}" class="thumb">
+      <img ng-src="{{item.thumbnail}}">
+      <div class="moviesIndex">
+          <div><b>Film : </b>{{ item.title }}</div>
+          <div><b>Catégorie : </b>{{ item.category }}</div>
+          <div><b>Durée : </b>{{ item.duration }}</div>
+      </div>
+    </a>
+  </div>
+</div>
