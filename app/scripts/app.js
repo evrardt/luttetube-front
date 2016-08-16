@@ -22,7 +22,7 @@ angular
     'vcRecaptcha'
   ])
   .constant('CONFIG', {
-    'HOST' : 'http://localhost:3000',
+    'HOST' : 'http://luttetube.fr',
     'YOUTUBE_API_KEY' : 'AIzaSyDrNpz22gF7QK2WJwjIKNBcJF3BabehGZQ',
     'CHANNEL' : {
       'TARANIS' : 'UCiZ005Ac5axBC9-p0Zz3GPQ',
