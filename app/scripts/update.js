@@ -22,15 +22,18 @@ angular.module('luttetubeApp')
         $rootScope.LS.init = false
 
         this.getTypes = function(item) {
+            console.log(item);
             $http({
                 method: 'GET',
                 url: CONFIG.HOST+"/api/"+item+"/types"
             }).then(function successCallback(response) {
+                console.log(response);
                 for (var i in response.data) {
                     type.push(response.data[i].type);
                 }
                 that.getPlace(item);
             }, function errorCallback(response) {
+                console.log(response);
                 $scope.error = response;
             });
         };
