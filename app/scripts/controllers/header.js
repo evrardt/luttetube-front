@@ -126,38 +126,8 @@ angular.module('luttetubeApp')
                 }
                 $rootScope.LS.doc.playlists[i].count = cpt;
             }
-            that.sortPlaylistsByDate();
-        };
-
-        this.sortPlaylistsByDate = function() {
-            $rootScope.LS.lutte.playlists.sort(function(a,b) {
-                if (!b || !b.date) {
-                    return 1;
-                }
-                if (!a || !a.date) {
-                    return -1;
-                }
-                if (new Date(a.date).getTime() < new Date(b.date).getTime())
-                    return 1;
-                if (new Date(a.date).getTime() > new Date(b.date).getTime())
-                    return -1;
-                return 0;
-            });
-            $rootScope.LS.doc.playlists.sort(function(a,b) {
-                if (!b || !b.date || !b.date.getTime()) {
-                    return 1;
-                }
-                if (!a || !a.date || !a.date.getTime()) {
-                    return -1;
-                }
-                if (a.date.getTime() < b.date.getTime())
-                    return 1;
-                if (a.date.getTime() > b.date.getTime())
-                    return -1;
-                return 0;
-            });
             $rootScope.LS.init = true;
-        }
+        };
         
         this.getTypes("lutte");
     }]);
