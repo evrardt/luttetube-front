@@ -448,6 +448,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
+    'jshint',
     'clean:server',
     'wiredep',
     'concurrent:test',
@@ -457,7 +458,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'jshint',
     'clean:dist',
     'wiredep',
     'useminPrepare',
