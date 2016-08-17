@@ -23,6 +23,7 @@ angular.module('luttetubeApp')
       ) {
             $scope.config = CONFIG;
             $scope.data = [];
+            $scope.index = 0;
 
             var that = this;
 
@@ -115,6 +116,14 @@ angular.module('luttetubeApp')
                 that.selectType($rootScope.LS.lutte.typeFilter);
               }
             };
+
+            this.previous = function() {
+              $scope.index -= 20;
+            }
+
+            this.next = function() {
+              $scope.index += 20;
+            }
 
             if ($rootScope.LS.init) {
               if ($rootScope.LS.lutte.typeFilter !== '') {

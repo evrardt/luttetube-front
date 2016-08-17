@@ -32,6 +32,24 @@ angular.module('luttetubeApp')
 
         $rootScope.LS.init = false;
 
+        this.sortPlaylistsByDate = function() { 
+            /*$rootScope.LS.lutte.playlists.sort(function(a,b) { 
+                if (!b || !b.date) { 
+                    return 1; 
+                } 
+                if (!a || !a.date) { 
+                    return -1; 
+                } 
+                if (new Date(a.date).getTime() < new Date(b.date).getTime()) {
+                    return 1; 
+                }
+                if (new Date(a.date).getTime() > new Date(b.date).getTime()) {
+                    return -1; 
+                }
+                return 0; 
+            })*/
+        }; 
+
         this.getTypes = function(item) {
             $http({
                 method: 'GET',
@@ -126,6 +144,7 @@ angular.module('luttetubeApp')
                 }
                 $rootScope.LS.doc.playlists[i].count = cpt;
             }
+            this.sortPlaylistsByDate();
             $rootScope.LS.init = true;
         };
         
