@@ -131,10 +131,10 @@ angular.module('luttetubeApp')
 
         this.sortPlaylistsByDate = function() {
             $rootScope.LS.lutte.playlists.sort(function(a,b) {
-                if (!b || !b.date) {
+                if (!b || !b.date || !b.date.getTime()) {
                     return 1;
                 }
-                if (!a || !a.date) {
+                if (!a || !a.date || !a.date.getTime()) {
                     return -1;
                 }
                 if (a.date.getTime() < b.date.getTime())
@@ -144,10 +144,10 @@ angular.module('luttetubeApp')
                 return 0;
             });
             $rootScope.LS.doc.playlists.sort(function(a,b) {
-                if (!b || !b.date) {
+                if (!b || !b.date || !b.date.getTime()) {
                     return 1;
                 }
-                if (!a || !a.date) {
+                if (!a || !a.date || !a.date.getTime()) {
                     return -1;
                 }
                 if (a.date.getTime() < b.date.getTime())
