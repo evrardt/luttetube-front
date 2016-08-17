@@ -8,7 +8,7 @@
 <div class="row bordered">
   <h4 class="well">Documentaires LutteTube</h4>
   <div ng-if="(LS.doc.playlists | filter:{type:LS.doc.typeFilter}).length == 0">Aucun</div>
-  <div class="col-md-3 thumbBlock" ng-repeat="item in LS.doc.playlists | filter:{type:LS.doc.typeFilter}">
+  <div class="col-md-3 thumbBlock" ng-repeat="item in LS.doc.playlists | orderBy:item.type | filter:{type:LS.doc.typeFilter}">
     <a href="#/playlist/doc/{{item.id}}" class="thumb">
       <img ng-src="{{item.thumbnail}}">
       <span class="label label-default label-black countPlaylist">{{item.count}} vidéo<span ng-show="item.count>1">s</span></span>
