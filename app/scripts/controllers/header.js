@@ -131,15 +131,15 @@ angular.module('luttetubeApp')
 
         this.sortPlaylistsByDate = function() {
             $rootScope.LS.lutte.playlists.sort(function(a,b) {
-                if (!b || !b.date || !Date(b)) {
+                if (!b || !b.date) {
                     return 1;
                 }
-                if (!a || !a.date || !Date(a)) {
+                if (!a || !a.date) {
                     return -1;
                 }
-                if (Date(a.date).getTime() < Date(b.date).getTime())
+                if (new Date(a.date).getTime() < new Date(b.date).getTime())
                     return 1;
-                if (Date(a.date) > Date(b.date).getTime())
+                if (new Date(a.date).getTime() > new Date(b.date).getTime())
                     return -1;
                 return 0;
             });
