@@ -53,6 +53,7 @@ angular.module('luttetubeApp')
             });
 
             this.selectMarker = function(id) {
+              $scope.index = 0;
               if (id.latLng) { 
                 for (var i in $scope.markerPlace) { 
                   if ($scope.markerPlace[i].location && $scope.markerPlace[i].location.lat.toFixed(2) === id.latLng.toJSON().lat.toFixed(2) && $scope.markerPlace[i].location.lng.toFixed(2) === id.latLng.toJSON().lng.toFixed(2)) { 
@@ -77,6 +78,7 @@ angular.module('luttetubeApp')
             };
 
             this.selectType = function(item) {
+              $scope.index = 0;
               $rootScope.LS.lutte.typeFilter = item;
               
               var playlists = angular.copy($rootScope.LS.lutte.playlists);

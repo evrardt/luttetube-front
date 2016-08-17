@@ -16,7 +16,7 @@
       <option value="category">Dernières catégories</option>
       <option value="date">Dernières ajoutées</option>
     </select>
-    <button class="btn btn-default more" ng-click="go('/playlists')">Voir plus</button>
+    <button class="btn btn-default more" ng-click="main.go('/playlists')">Voir plus</button>
   </h4>
   <div class="col-md-3 thumbBlock animate" ng-repeat="item in LS.lutte.type | limitTo:4" ng-show="LS.lutte.display === 'category'">
     <a href="#/playlists" ng-click="LS.lutte.typeFilter = item; LS.lutte.placeFilter = ''" class="thumb">
@@ -52,7 +52,7 @@
       <option value="category">Dernières catégories</option>
       <option value="date">Derniers ajoutés</option>
     </select>
-    <button class="btn btn-default more" ng-click="go('/doc')">Voir plus</button>
+    <button class="btn btn-default more" ng-click="main.go('/doc')">Voir plus</button>
   </h4>
   <div class="col-md-3 thumbBlock" ng-repeat="item in LS.doc.type | limitTo:4" ng-show="LS.doc.display === 'category'">
     <a href="#/doc" ng-click="LS.doc.typeFilter = item; LS.doc.placeFilter = ''" class="thumb">
