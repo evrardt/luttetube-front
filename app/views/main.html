@@ -4,7 +4,7 @@
     <p>LutteTube c'est quoi ? Un référenceur de vidéos concernant la lutte contre le système capitaliste ! Un endroit ou vous trouverez à la fois des documentaires sur notre monde, des témoignagnes de luttes sociales et bien plus encore ...</p>  
   </div>
 </div>
-<div class="ngmap" map-lazy-load="https://maps.google.com/maps/api/js"><!-- map-lazy-load-params="{{googleMapsUrl}}">-->
+<div class="ngmap" map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{googleMapsUrl}}">
   <ng-map center="46.2830792,2.041452"  zoom="5" max-zoom="8" min-zoom="2">
     <marker icon="{{marker}}" ng-repeat="p in LS.lutte.place" position="{{p.location.lat}},{{p.location.lng}}" id={{p.city}} title="{{p.city}}" on-click="main.goToPlace()"></marker>
   </ng-map>
