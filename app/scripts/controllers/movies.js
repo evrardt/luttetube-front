@@ -27,7 +27,7 @@ angular.module('luttetubeApp')
       ) {
             $scope.config = CONFIG;
             for (var i = 0; i < CONFIG.MOVIES.length; i++) {
-                if (CONFIG.MOVIES[i].label == $routeParams.label) {
+                if (CONFIG.MOVIES[i].label === $routeParams.label) {
                     $scope.embed = $sce.trustAsHtml(CONFIG.MOVIES[i].embed);
                 }
             }

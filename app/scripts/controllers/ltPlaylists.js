@@ -46,7 +46,7 @@ angular.module('luttetubeApp')
 
               if ($rootScope.LS.lutte.typeFilter !== '') {
                 that.selectType($rootScope.LS.lutte.typeFilter);
-              } else if ($rootScope.LS.lutte.placeFilter != '') {
+              } else if ($rootScope.LS.lutte.placeFilter !== '') {
                 that.selectMarker($rootScope.LS.lutte.placeFilter);
               }
             });
@@ -54,21 +54,21 @@ angular.module('luttetubeApp')
             this.selectMarker = function(id) {
               if (id.latLng) { 
                 for (var i in $scope.markerPlace) { 
-                  if ($scope.markerPlace[i].location && $scope.markerPlace[i].location.lat.toFixed(2) == id.latLng.toJSON().lat.toFixed(2) && $scope.markerPlace[i].location.lng.toFixed(2) == id.latLng.toJSON().lng.toFixed(2)) { 
+                  if ($scope.markerPlace[i].location && $scope.markerPlace[i].location.lat.toFixed(2) === id.latLng.toJSON().lat.toFixed(2) && $scope.markerPlace[i].location.lng.toFixed(2) === id.latLng.toJSON().lng.toFixed(2)) { 
                     $rootScope.LS.lutte.placeFilter = $scope.markerPlace[i].city; 
                   } 
                 }
                 var playlists = angular.copy($rootScope.LS.lutte.playlists);
                 $scope.typesDisplayed = [];
                 for (i in playlists) {
-                  if (playlists[i].place == $rootScope.LS.lutte.placeFilter && $scope.typesDisplayed.indexOf(playlists[i].type) === -1) {
+                  if (playlists[i].place === $rootScope.LS.lutte.placeFilter && $scope.typesDisplayed.indexOf(playlists[i].type) === -1) {
                     $scope.typesDisplayed.push(playlists[i].type);
                   }
                 }
               } else if (id.location) {
                 $scope.markerPlace = angular.copy($rootScope.LS.lutte.place);
-                for (var i in $scope.markerPlace) { 
-                  if ($scope.markerPlace[i].location.lat.toFixed(2) == id.location.lat.toFixed(2) && $scope.markerPlace[i].location.lng.toFixed(2) == id.location.lng.toFixed(2)) { 
+                for (i in $scope.markerPlace) { 
+                  if ($scope.markerPlace[i].location.lat.toFixed(2) === id.location.lat.toFixed(2) && $scope.markerPlace[i].location.lng.toFixed(2) === id.location.lng.toFixed(2)) { 
                     $rootScope.LS.lutte.placeFilter = $scope.markerPlace[i].city; 
                   } 
                 }
@@ -81,7 +81,7 @@ angular.module('luttetubeApp')
               var playlists = angular.copy($rootScope.LS.lutte.playlists);
               var temp = [];
               for (var i in playlists) {
-                if (playlists[i].type == $rootScope.LS.lutte.typeFilter && temp.indexOf(playlists[i].place) === -1) {
+                if (playlists[i].type === $rootScope.LS.lutte.typeFilter && temp.indexOf(playlists[i].place) === -1) {
                   temp.push(playlists[i].place);
                 }
               }
@@ -91,35 +91,35 @@ angular.module('luttetubeApp')
                   $scope.markerPlace.push($rootScope.LS.lutte.place[i]);
                 }
               }
-            }
+            };
 
             this.allTypes = function() {
               $rootScope.LS.lutte.typeFilter = "";
               $scope.typesDisplayed = angular.copy($rootScope.LS.lutte.type);
-              if ($rootScope.LS.lutte.placeFilter == "") {
+              if ($rootScope.LS.lutte.placeFilter === "") {
                 $scope.markerPlace = angular.copy($rootScope.LS.lutte.place);
               } else {
                 for (var i in $rootScope.LS.lutte.place) {
-                  if ($rootScope.LS.lutte.placeFilter == $rootScope.LS.lutte.place[i].city) {
+                  if ($rootScope.LS.lutte.placeFilter === $rootScope.LS.lutte.place[i].city) {
                     this.selectMarker($rootScope.LS.lutte.place[i]);
                   }
                 }
               }
-            }
+            };
 
             this.allCities = function() {
               $rootScope.LS.lutte.placeFilter = "";
-              if ($rootScope.LS.lutte.typeFilter == "") {
+              if ($rootScope.LS.lutte.typeFilter === "") {
                 $scope.typesDisplayed = angular.copy($rootScope.LS.lutte.type);
               } else {
                 that.selectType($rootScope.LS.lutte.typeFilter);
               }
-            }
+            };
 
             if ($rootScope.LS.init) {
               if ($rootScope.LS.lutte.typeFilter !== '') {
                 this.selectType($rootScope.LS.lutte.typeFilter);
-              } else if ($rootScope.LS.lutte.placeFilter != '') {
+              } else if ($rootScope.LS.lutte.placeFilter !== '') {
                 this.selectMarker($rootScope.LS.lutte.placeFilter);
               }
             }

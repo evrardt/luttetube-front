@@ -1,5 +1,14 @@
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name luttetubeApp.controller:HeaderCtrl
+ * @description
+ * # HeaderCtrl
+ * Controller of the luttetubeApp
+ */
 angular.module('luttetubeApp')
-    .run(function($rootScope, $localStorage, $http, CONFIG) {
+  .controller('HeaderCtrl', ['$rootScope', '$localStorage', '$http', 'CONFIG', function($rootScope, $localStorage, $http, CONFIG) {
         
         var that = this;
         $rootScope.LS = $localStorage;
@@ -7,6 +16,8 @@ angular.module('luttetubeApp')
         var playlists = [];
         var type = [];
         var place = [];
+        var placeFilter = "";
+        var typeFilter = "";
 
         $rootScope.LS.doc = {
             placeFilter: "",
@@ -19,7 +30,7 @@ angular.module('luttetubeApp')
             display: "date"
         };
 
-        $rootScope.LS.init = false
+        $rootScope.LS.init = false;
 
         this.getTypes = function(item) {
             $http({
@@ -74,7 +85,7 @@ angular.module('luttetubeApp')
             }, function errorCallback(response) {
                 console.log(response);
             });
-        }
+        };
 
         this.getVideos = function() {
             $http({
@@ -106,9 +117,9 @@ angular.module('luttetubeApp')
                 }
                 $rootScope.LS.lutte.playlists[i].count = cpt;
             }
-            for (var i in $rootScope.LS.doc.playlists) {
-                var cpt = 0;
-                for (var j in $rootScope.LS.doc.videos) {
+            for (i in $rootScope.LS.doc.playlists) {
+                cpt = 0;
+                for (j in $rootScope.LS.doc.videos) {
                     if ($rootScope.LS.doc.playlists[i].id === $rootScope.LS.doc.videos[j].playlistId) {
                         cpt++;
                     }
@@ -119,4 +130,4 @@ angular.module('luttetubeApp')
         };
         
         this.getTypes("lutte");
-    });
+    }]);

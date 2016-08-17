@@ -36,18 +36,18 @@ angular.module('luttetubeApp')
 
             this.selectType = function(item) {
               $rootScope.LS.doc.typeFilter = item;
-            }
+            };
 
             this.allTypes = function() {
               $rootScope.LS.doc.typeFilter = "";
               $scope.typesDisplayed = angular.copy($rootScope.LS.doc.type);
-            }
+            };
 
             this.allCities = function() {
-              if ($rootScope.LS.doc.typeFilter == "") {
+              if ($rootScope.LS.doc.typeFilter === "") {
                 $scope.typesDisplayed = angular.copy($rootScope.LS.doc.type);
               } else {
                 that.selectType($rootScope.LS.doc.typeFilter);
               }
-            }
+            };
      }]);
