@@ -35,11 +35,11 @@ angular.module('luttetubeApp')
                 if ($routeParams.type === 'lutte') {
                     var playlists = angular.copy($rootScope.LS.lutte.playlists);
                 } else if ($routeParams.type === 'doc') {
-                    var playlists = angular.copy($rootScope.LS.doc.playlists);
+                    playlists = angular.copy($rootScope.LS.doc.playlists);
                 }
                 $scope.type = $routeParams.type;
                 for (var i in playlists) {
-                    if (playlists[i].id == $routeParams.id) {
+                    if (playlists[i].id === $routeParams.id) {
                         if ($routeParams.type === 'lutte') {
                             $scope.videos = [];
                             for (var j in $rootScope.LS.lutte.videos) {
@@ -49,7 +49,7 @@ angular.module('luttetubeApp')
                             }
                         } else if ($routeParams.type === 'doc') {
                             $scope.videos = [];
-                            for (var j in $rootScope.LS.doc.videos) {
+                            for (j in $rootScope.LS.doc.videos) {
                                 if ($rootScope.LS.doc.videos[j].playlistId === $scope.id) {
                                     $scope.videos.push($rootScope.LS.doc.videos[j]);
                                 }

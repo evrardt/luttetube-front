@@ -2,7 +2,8 @@
   "name": "luttetube",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "^1.4.0",
+    "jquery": "2.2.4",
+    "angular": "^1.5.8",
     "bootstrap": "^3.2.0",
     "angular-animate": "^1.4.0",
     "angular-cookies": "^1.4.0",
@@ -10,10 +11,10 @@
     "angular-route": "^1.4.0",
     "angular-sanitize": "^1.4.0",
     "angular-touch": "^1.4.0",
-    "ngstorage": "^0.3.11",
+    "ngstorage": "^0.3.10",
     "ngmap": "^1.17.3",
     "angular-i18n": "^1.5.8",
-    "angular-bootstrap": "^2.0.1",
+    "angular-bootstrap": "^2.0.0",
     "bootstrap-social": "^5.0.0",
     "font-awesome": "FortAwesome/Font-Awesome#^4.6.3",
     "angular-recaptcha": "^3.0.4"
