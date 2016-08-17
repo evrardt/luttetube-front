@@ -137,11 +137,9 @@ angular.module('luttetubeApp')
                 if (!a || !a.date) {
                     return -1;
                 }
-                console.log("a :"+a.date);
-                console.log("b :"+b.date);
-                if (a.date.getTime() < b.date.getTime())
+                if (new Date(a.date).getTime() < new Date(b.date).getTime())
                     return 1;
-                if (a.date.getTime() > b.date.getTime())
+                if (new Date(a.date).getTime() > new Date(b.date).getTime())
                     return -1;
                 return 0;
             });
