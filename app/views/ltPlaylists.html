@@ -8,7 +8,7 @@
 </div>
 <div class="row bordered">
   <!--<div class="row">-->
-    <div map-lazy-load="https://maps.google.com/maps/api/js"> <!--map-lazy-load-params="{{googleMapsUrl}}">-->
+    <div map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{googleMapsUrl}}">
       <ng-map center="46.2830792,2.041452" zoom="5" max-zoom="8" min-zoom="2">
         <div ng-repeat="p in markerPlace track by $index">
           <marker icon="{{selectedMarker}}" ng-if="LS.lutte.placeFilter == p.city" 
