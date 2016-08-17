@@ -35,7 +35,7 @@
 <div class="row bordered">
   <h4 class="well">Playlists LutteTube</h4>
   <div ng-if="(LS.lutte.playlists | filter:{place:LS.lutte.placeFilter, type:LS.lutte.typeFilter}).length == 0">Aucun</div>
-  <div class="col-md-3 thumbBlock animate" ng-repeat="item in LS.lutte.playlists | filter:{place:LS.lutte.placeFilter, type:LS.lutte.typeFilter}">
+  <div class="col-md-3 thumbBlock animate" ng-repeat="item in LS.lutte.playlists | filter:{place:LS.lutte.placeFilter, type:LS.lutte.typeFilter} | limitTo:20:index">
     <a href="#/playlist/lutte/{{item.id}}" class="thumb">
       <img ng-src="{{item.thumbnail}}">
       <span class="label label-default label-black countPlaylist">{{item.count}} vidéo<span ng-show="item.count>1">s</span></span>
@@ -56,3 +56,9 @@ margin-right: 10px;">
     </a>
   </div>
 </div>
+<nav ng-show="(LS.lutte.playlists | filter:{place:LS.lutte.placeFilter, type:LS.lutte.typeFilter}).length > 20">
+  <ul class="pager">
+    <li ng-show="index >= 20"><a href="" ng-click="ltPlaylists.previous()">Previous</a></li>
+    <li ng-show="index < (LS.lutte.playlists | filter:{place:LS.lutte.placeFilter, type:LS.lutte.typeFilter}).length-20"><a href="" ng-click="ltPlaylists.next()">Next</a></li>
+  </ul>
+</nav>
