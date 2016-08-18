@@ -6,9 +6,13 @@
   </h4>
 </div>
 <div class="row bordered">
-  <h4 class="well">Documentaires LutteTube</h4>
+  <h4 class="well">Documentaires LutteTube <select class="form-control inline more" ng-model="LS.doc.display">
+      <option value="type">Alphabétique par type</option>
+      <option value="date">Derniers ajoutés</option>
+    </select>
+  </h4>
   <div ng-if="(LS.doc.playlists | filter:{type:LS.doc.typeFilter}).length == 0">Aucun</div>
-  <div class="col-md-3 thumbBlock" ng-repeat="item in LS.doc.playlists | filter:{type:LS.doc.typeFilter}">
+  <div class="col-md-3 thumbBlock" ng-repeat="item in LS.doc.playlists | orderBy:LS.doc.display | filter:{type:LS.doc.typeFilter}">
     <a href="#/playlist/doc/{{item.id}}" class="thumb">
       <img ng-src="{{item.thumbnail}}">
       <span class="label label-default label-black countPlaylist">{{item.count}} vidéo<span ng-show="item.count>1">s</span></span>

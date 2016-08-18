@@ -14,6 +14,12 @@ angular.module('luttetubeApp')
 
     $scope.host = CONFIG.HOST;
 
+    $scope.$watch('LS.user', function() {
+      if ($scope.LS.user.email) {
+        $location.path("/");
+      }
+    });
+
     this.register = function() {
       $http.post($scope.host + '/api/users', {
         name: $scope.name,

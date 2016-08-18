@@ -120,7 +120,7 @@ angular
         controller: 'DocPlaylistsCtrl',
         controllerAs: 'docPlaylists'
       })
-      .when('/add/:type', {
+      .when('/add/:type/:id', {
         templateUrl: 'views/add.html',
         controller: 'AddCtrl',
         controllerAs: 'add'
