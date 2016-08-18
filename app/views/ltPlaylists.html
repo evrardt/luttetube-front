@@ -58,7 +58,7 @@ margin-right: 10px;">
 </div>
 <nav ng-show="(LS.lutte.playlists | filter:{place:LS.lutte.placeFilter, type:LS.lutte.typeFilter}).length > 20">
   <ul class="pager">
-    <li ng-show="index >= 20"><a href="" ng-click="ltPlaylists.previous()">Précedente</a></li>
-    <li ng-show="index < (LS.lutte.playlists | filter:{place:LS.lutte.placeFilter, type:LS.lutte.typeFilter}).length-20"><a href="" ng-click="ltPlaylists.next()">Suivante</a></li>
+    <li ng-show="index >= 20"><a href="" ng-click="ltPlaylists.previous()">Page précedente</a></li>
+    <li ng-show="index < (LS.lutte.playlists | filter:{place:LS.lutte.placeFilter, type:LS.lutte.typeFilter}).length-20"><a href="" ng-click="ltPlaylists.next()">Page suivante</a></li>
   </ul>
 </nav>
