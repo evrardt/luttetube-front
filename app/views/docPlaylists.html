@@ -6,7 +6,7 @@
   </h4>
 </div>
 <div class="row bordered">
-  <h4 class="well">Documentaires LutteTube <select class="form-control inline more" ng-model="LS.doc.display">
+  <h4 class="well well-sm">Documentaires LutteTube <select class="form-control inline more" ng-model="LS.doc.display">
       <option value="type">Alphabétique par type</option>
       <option value="date">Derniers ajoutés</option>
     </select>
@@ -25,8 +25,8 @@
             <div ng-if="item.date">
               <div class="typeDated">{{item.type}}</div>
             </div>
-            <div ng-if="!item.date" ng-class="{type: true, notDated: (item.monthly != false && item.monthly != true)}">{{item.type}}</div>
-            <div ng-if="item.place" ng-class="{place: true, notDated: (item.monthly != false && item.monthly != true)}">{{item.place}}</div>
+            <div ng-if="!item.date" class="docType" ng-class="{type: true, notDated: (item.monthly != false && item.monthly != true)}">{{item.type}}</div>
+            <div ng-if="item.place" class="docPlace" ng-class="{notDated: (item.monthly != false && item.monthly != true)}">{{item.place}}</div>
           </div>
       </div>
     </a>

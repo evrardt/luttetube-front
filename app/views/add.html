@@ -44,7 +44,7 @@
     <div ng-repeat="video in videos track by $index">
         <div class="form-group col-sm-10">
             <label>Lien de la vidéo :</label>
-            <input ng-model="videos[$index]" type="select" placeholder="Entrez le lien de la vidéo ici" class="form-control">
+            <input ng-model="videos[$index]" type="select" placeholder="https://www.youtube.com/watch?v=xxxxxxxxxxx" class="form-control">
         </div>
         <div class="form-group col-sm-2" ng-hide="$index == 0">
             <button type="button" class="btn btn-default" ng-click="add.removeLine($index)" style="margin-top: 25px"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>

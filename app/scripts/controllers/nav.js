@@ -11,5 +11,6 @@ angular.module('luttetubeApp')
   .controller('NavCtrl', ['$rootScope', function ($rootScope) {
       this.logout = function() {
           delete $rootScope.LS.user;
+          delete $rootScope.LS.token
       };
   }]);

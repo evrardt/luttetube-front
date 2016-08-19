@@ -20,6 +20,8 @@ angular.module('luttetubeApp')
     $scope.success = '';
     $scope.errors = [];
 
+    var that = this;
+
     $scope.$watch("LS.init", function() {  
       $scope.id = $routeParams.id;
       $scope.type = $routeParams.type;
@@ -94,18 +96,10 @@ angular.module('luttetubeApp')
           $scope.videos.splice(i, 1);
         }
       }
-
-      if ($scope.videos.length == 1 && $scope.videos[0] === '') {
-        $scope.errors.push("Vous avez oublié d'indiquer un lien de vidéo.");
-      }
-
-      if (!$scope.captcha) {
-          $scope.errors.push("Vous n'avez pas validé le captcha.");
-      } 
   
       var category = '';
       var playlist = '';
-      var link = $scope.videos;
+      var links = $scope.videos;
       var type = '';
 
       if ($scope.newPlaylist) {
@@ -123,13 +117,22 @@ angular.module('luttetubeApp')
           if (!$scope.categoryType || $scope.categoryType === '') {
             $scope.errors.push("Vous n'avez pas indiqué de section.");
           } else {
-            type = $scope.categoryType;
+            if ($scope.categoryType === "lutte") {
+              type = "Lutte";
+            } else if ($scope.categoryType === "doc") {
+              type = "Documentaires";
+            }
           }
         } else {
           if (!$scope.typeSelected || $scope.typeSelected === '') {
             $scope.errors.push("Vous n'avez pas sélectionné de catégorie.");
           } else {
             category = $scope.typeSelected;
+            if ($rootScope.LS.lutte.type.indexOf(category) !== -1) {
+              type = "Lutte";
+            } else if ($rootScope.LS.doc.type.indexOf(category) !== -1) {
+              type = "Documentaires";
+            }
           }
           if (!$scope.playlistTitle || $scope.playlistTitle === '') {
             $scope.errors.push("Vous n'avez pas indiqué de titre de playlist.");
@@ -142,24 +145,63 @@ angular.module('luttetubeApp')
           $scope.errors.push("Vous n'avez pas sélectionné de playlist.");
         } else {
           playlist = $scope.playlistSelected;
+          var test = false;
+          for (var i in $rootScope.LS.doc.playlists) {
+            if ($rootScope.LS.doc.playlists[i].id == playlist) {
+              playlist = $rootScope.LS.doc.playlists[i].title;
+              category = $rootScope.LS.doc.playlists[i].type;
+              type = "Documentaires";
+              test = true;
+            }
+          }
+          if (!test) {
+            for (var i in $rootScope.LS.lutte.playlists) {
+              if ($rootScope.LS.lutte.playlists[i].id == playlist) {
+                playlist = $rootScope.LS.lutte.playlists[i].title;
+                category = $rootScope.LS.lutte.playlists[i].type;
+                type = "Lutte";
+              }
+            }
+          }
         }
       }
 
+      if ($scope.videos.length == 1 && $scope.videos[0] === '') {
+        $scope.errors.push("Vous avez oublié d'indiquer un lien de vidéo.");
+      }
+
+      if (!$scope.captcha) {
+          $scope.errors.push("Vous n'avez pas validé le captcha.");
+      } 
+
       if ($scope.errors.length == 0) {
-        $http.post(CONFIG.HOST + '/api/submissions', {
+        for (var i in links) {
+          that.updateDb(type, category, playlist, links[i]);
+        }
+      }
+    };
+
+    this.updateDb = function(type, category, playlist, link) {
+      $http({
+        method: 'POST',
+        url: CONFIG.HOST + '/api/submissions',
+        data: {
           category: category,
           playlist: playlist,
+          playlistId: $scope.playlistSelected,
           link: link,
           type: type,
           newCategory: $scope.newCategory,
-          newPlaylist: $scope.newPlaylist
-        })
-        .then(function (response) {
-          $scope.success = "Votre demande a bien été soumise à approbation.";
-          $scope.videos = [];
-        }, function (response) {
-          $scope.errors.push("Une erreur est survenue, vous pouvez en faire par à <a href='mailto:admin@luttetube.fr'>l'administrateur</a>.");
-        });
-      }
-    };
+          newPlaylist: $scope.newPlaylist,
+          active: false
+        }
+      })
+      .then(function (response) {
+        $scope.success = "Votre demande a bien été soumise à approbation.";
+        $scope.videos = [];
+        $scope.videos.push('');
+      }, function (response) {
+        $scope.errors.push("Une erreur est survenue, vous pouvez en faire par à <a href='mailto:admin@luttetube.fr'>l'administrateur</a>.");
+      });
+    }
   }]);

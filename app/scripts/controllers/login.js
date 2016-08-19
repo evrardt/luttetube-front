@@ -21,7 +21,8 @@ angular.module('luttetubeApp')
       })
       .then(function (response) {
         if (response.data.token) {
-          that.getUser(response.data.token);
+          $rootScope.LS.token = response.data.token;
+          that.getUser();
         }
       }, function (response) {
         if (response.data.message) {
@@ -32,12 +33,12 @@ angular.module('luttetubeApp')
       });
     };
 
-    this.getUser = function(token) {
+    this.getUser = function() {
       $http({
         method: 'GET',
         url: $scope.host + '/api/users/me',
         headers: {
-            'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + $rootScope.LS.token
         }
       })
       .then(function (response) {

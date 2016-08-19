@@ -130,6 +130,11 @@ angular
         controller: 'RegisterCtrl',
         controllerAs: 'register'
       })
+      .when('/admin/submited-videos', {
+        templateUrl: 'views/admin/submitedVideos.html',
+        controller: 'SubmitedVideosCtrl',
+        controllerAs: 'submitedVideos'
+      })
       .otherwise({
         redirectTo: '/'
       });
