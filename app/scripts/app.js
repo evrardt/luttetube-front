@@ -22,7 +22,7 @@ angular
     'vcRecaptcha'
   ])
   .constant('CONFIG', {
-    'HOST' : 'http://localhost:3000',
+    'HOST' : 'http://localhost:3001',
     'YOUTUBE_API_KEY' : 'AIzaSyDrNpz22gF7QK2WJwjIKNBcJF3BabehGZQ',
     'CHANNEL' : {
       'TARANIS' : 'UCiZ005Ac5axBC9-p0Zz3GPQ',
@@ -129,6 +129,11 @@ angular
         templateUrl: 'views/register.html',
         controller: 'RegisterCtrl',
         controllerAs: 'register'
+      })
+      .when('/admin/submited-videos', {
+        templateUrl: 'views/admin/submitedVideos.html',
+        controller: 'SubmitedVideosCtrl',
+        controllerAs: 'submitedVideos'
       })
       .otherwise({
         redirectTo: '/'
