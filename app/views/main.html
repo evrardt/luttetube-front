@@ -74,8 +74,8 @@
             <div ng-if="item.date">
               <div class="typeDated">{{item.type}}</div>
             </div>
-            <div ng-if="!item.date" ng-class="{type: true, notDated: (item.monthly != false && item.monthly != true)}">{{item.type}}</div>
-            <div ng-if="item.place" ng-class="{place: true, notDated: (item.monthly != false && item.monthly != true)}">{{item.place}}</div>
+            <div ng-if="!item.date" class="docType" ng-class="{type: true, notDated: (item.monthly != false && item.monthly != true)}">{{item.type}}</div>
+            <div ng-if="item.place" class="docPlace" ng-class="{notDated: (item.monthly != false && item.monthly != true)}">{{item.place}}</div>
           </div>
       </div>
     </a>

@@ -1,0 +1,26 @@
+<h4>Liste des utilisateurs :</h4><hr/>
+<div class="well table-responsive table-striped table-hover table-condensed">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr ng-repeat="(key, user) in users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</div>

@@ -8,7 +8,7 @@
  * Controller of the luttetubeApp
  */
 angular.module('luttetubeApp')
-  .controller('SubmitedVideosCtrl', function ($rootScope, $scope, $sce, $http, CONFIG) {
+  .controller('SubmitedVideosCtrl', function ($rootScope, $scope, $cookies, $sce, $http, CONFIG) {
     $scope.errors = [];
     $scope.displayValidate = 'false';
 
@@ -19,7 +19,7 @@ angular.module('luttetubeApp')
         method: 'GET',
         url: CONFIG.HOST + '/api/submissions',
         headers: {
-            'Authorization': 'Bearer ' + $rootScope.LS.token
+            'Authorization': 'Bearer ' + $cookies.get('token')
         }
       })
       .then(function (response) {
@@ -38,7 +38,7 @@ angular.module('luttetubeApp')
         method: 'PUT',
         url: CONFIG.HOST + '/api/submissions/' + $scope.submissions[id]._id,
         headers: {
-            'Authorization': 'Bearer ' + $rootScope.LS.token
+            'Authorization': 'Bearer ' + $cookies.get('token')
         },
         data: {
           active: active
@@ -56,7 +56,7 @@ angular.module('luttetubeApp')
         method: 'DELETE',
         url: CONFIG.HOST + '/api/submissions/' + $scope.submissions[id]._id,
         headers: {
-            'Authorization': 'Bearer ' + $rootScope.LS.token
+            'Authorization': 'Bearer ' + $cookies.get('token')
         }
       })
       .then(function (response) {
@@ -77,7 +77,7 @@ angular.module('luttetubeApp')
         method: 'POST',
         url: CONFIG.HOST + '/api/youtube/playlists',
         headers: {
-            'Authorization': 'Bearer ' + $rootScope.LS.token
+            'Authorization': 'Bearer ' + $cookies.get('token')
         },
         data: {
           submission: $scope.submissions[id]

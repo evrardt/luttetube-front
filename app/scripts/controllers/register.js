@@ -46,7 +46,7 @@ angular.module('luttetubeApp')
         })
         .then(function (response) {
           if (response.data.token) {
-            $rootScopeLS.user.token = response.data.token;
+            $cookies.put('token', response.data.token);
             that.getUser();
             $scope.success = "Inscription terminé, redirection en cours.";
           }
@@ -63,7 +63,7 @@ angular.module('luttetubeApp')
         method: 'GET',
         url: $scope.host + '/api/users/me',
         headers: {
-            'Authorization': 'Bearer ' + $rootScopeLS.user.token
+            'Authorization': 'Bearer ' + $cookies.get('token')
         }
       })
       .then(function (response) {
