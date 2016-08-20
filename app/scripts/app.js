@@ -24,10 +24,6 @@ angular
   .constant('CONFIG', {
     'HOST' : 'http://luttetube.fr',
     'YOUTUBE_API_KEY' : 'AIzaSyDrNpz22gF7QK2WJwjIKNBcJF3BabehGZQ',
-    'CHANNEL' : {
-      'TARANIS' : 'UCiZ005Ac5axBC9-p0Zz3GPQ',
-      'STREET_POLITICS' : 'UCWk1e9QHlBU_582wRadfpoA'
-    },
     'MOVIES' : [
       {
         'title' : 'Merci patron !',
@@ -134,6 +130,11 @@ angular
         templateUrl: 'views/admin/submitedVideos.html',
         controller: 'SubmitedVideosCtrl',
         controllerAs: 'submitedVideos'
+      })
+      .when('/admin/set-admin', {
+        templateUrl: 'views/admin/setAdmin.html',
+        controller: 'SetAdminCtrl',
+        controllerAs: 'setAdmin'
       })
       .otherwise({
         redirectTo: '/'

@@ -8,7 +8,7 @@
  * Controller of the luttetubeApp
  */
 angular.module('luttetubeApp')
-  .controller('LoginCtrl', ['$rootScope','$scope','$http', 'CONFIG', function ($rootScope, $scope, $http, CONFIG) {
+  .controller('LoginCtrl', ['$rootScope','$scope','$http', 'CONFIG', '$cookies', function ($rootScope, $scope, $http, CONFIG, $cookies) {
     
     var that = this;
     
@@ -21,7 +21,7 @@ angular.module('luttetubeApp')
       })
       .then(function (response) {
         if (response.data.token) {
-          $rootScope.LS.token = response.data.token;
+          $cookies.put('token',response.data.token);
           that.getUser();
         }
       }, function (response) {
@@ -38,7 +38,7 @@ angular.module('luttetubeApp')
         method: 'GET',
         url: $scope.host + '/api/users/me',
         headers: {
-            'Authorization': 'Bearer ' + $rootScope.LS.token
+            'Authorization': 'Bearer ' + $cookies.get('token')
         }
       })
       .then(function (response) {
@@ -51,5 +51,10 @@ angular.module('luttetubeApp')
         }
       });
     };
+
+    if ($cookies.get('token')) {
+      //console.log('toto');
+      this.getUser();
+    }
 
   }]);
