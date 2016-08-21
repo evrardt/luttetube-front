@@ -73,6 +73,7 @@ angular.module('luttetubeApp')
     }
 
     this.youtubeTransfert = function(id) {
+      console.log(id);
       $http({
         method: 'POST',
         url: CONFIG.HOST + '/api/youtube/playlists',
