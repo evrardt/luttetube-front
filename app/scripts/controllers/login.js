@@ -53,7 +53,7 @@ angular.module('luttetubeApp')
     };
 
     if ($cookies.get('token')) {
-      //console.log('toto');
+      $cookies.put('token', $cookies.get('token').replace(/"/g,''));
       this.getUser();
     }
 

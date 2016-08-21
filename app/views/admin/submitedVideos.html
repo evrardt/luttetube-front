@@ -8,7 +8,6 @@
         <thead>
             <tr>
                 <th>Type</th>
-                <th>Catégorie</th>
                 <th>Playlist</th>
                 <th>Lien</th>
                 <th>Preview</th>
@@ -18,8 +17,7 @@
         <tbody>
                 <tr ng-repeat="(key, submission) in submissions | filter:{active:displayValidate}">
                     <td>{{submission.type}}</td>
-                    <td>{{submission.category}}</td>
-                    <td>{{submission.playlist}}</td>
+                    <td>{{submission.category}} - {{submission.playlist}}</td>
                     <td><a ng-href="{{submission.link}}" target="_BLANK">{{submission.link}}</a></td>
                     <td>
                         <iframe width="200" height="110" ng-src="{{submission.embed}}" frameborder="0" allowfullscreen></iframe>

@@ -5,20 +5,19 @@
             <tr>
                 <th>Nom</th>
                 <th>Email</th>
-                <th>Actions</th>
+                <th>Role</th>
             </tr>
         </thead>
         <tbody>
-                <tr ng-repeat="(key, user) in users">
-                    <td>{{user.name}}</td>
+                <tr ng-repeat="(key, user) in users | filter:!name:'Admin':!_id:LS.user._id">
+                    <td>{{user.name}}{{user._id}}</td>
                     <td>{{user.email}}</td>
-                    <td>
-                        <button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                        </button>
-                        <button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
+                    <td class="form-group">
+                        <select ng-change="setAdmin.setRole(user._id, user.role)" class="form-control" ng-model="user.role">
+                            <option value="admin">Admin</option>
+                            <option value="contributor">Contributeur</option>
+                            <option value="user">Utilisateur</option>
+                        </select>
                     </td>
                 </tr>
         </tbody>
