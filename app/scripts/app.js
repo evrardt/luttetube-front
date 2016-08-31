@@ -22,7 +22,7 @@ angular
     'vcRecaptcha'
   ])
   .constant('CONFIG', {
-    'HOST' : 'http://localhost:3001',
+    'HOST' : 'https://luttetube.fr',
     'GOOGLE_API_KEY' : 'AIzaSyDrNpz22gF7QK2WJwjIKNBcJF3BabehGZQ',
     'MOVIES' : [
       {
