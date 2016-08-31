@@ -71,10 +71,4 @@ angular.module('luttetubeApp')
             }
             $location.path('/playlists');
           };
-
-          this.go = function(route) {
-            $rootScope.LS.lutte.typeFilter = "";
-            $rootScope.LS.lutte.placeFilter = "";
-            $location.path(route);
-          };
       }]);
