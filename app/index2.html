@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LutteTube</title>
+    <link rel="icon" type="image/png" href="images/favicon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/favicon/favicon-16x16.png" sizes="16x16" />
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!--<script src="http://maps.google.com/maps/api/js?key=AIzaSyDrNpz22gF7QK2WJwjIKNBcJF3BabehGZQ" async="" defer="defer" type="text/javascript"></script>-->
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-social/bootstrap-social.css" />
+    <!-- endbower -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <meta rel="canonical" property="og:site_name" content="LutteTube"/>
+    <meta rel="canonical" property="og:title" content="LutteTube" />
+    <meta rel="canonical" property="og:description" content="LutteTube c'est quoi ? Un référenceur de vidéos concernant la lutte contre le système capitaliste ! Un endroit ou vous trouverez à la fois des documentaires sur notre monde, des témoignagnes des luttes sociales partout dans le monde et bien plus encore ..." />
+    <meta rel="canonical" property="og:image" content="https://luttetube.herokuapp.com/images/logo-200px.png"/>
+  </head>
+  <body ng-app="luttetubeApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="header" ng-controller="HeaderCtrl">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#/"><img src="images/logo.png"/></a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+            <ul class="nav navbar-nav">
+              <li ng-class="{active:$root.page=='playlists'}"><a ng-href="#/playlists">Lutte</a></li>
+              <li ng-class="{active:$root.page=='doc'}"><a ng-href="#/doc">Documentaires</a></li>
+              <li ng-class="{active:$root.page=='help'}"><a ng-href="#/help">Contribuer</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right animate" ng-hide="LS.user">
+              <li class="dropdown" ng-controller="LoginCtrl as login">
+                <a class="dropdown-toggle" data-toggle="dropdown">Connexion <span class="caret"></span></a>
+                <ul id="login-dp" class="dropdown-menu">
+                  <li>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <!--<a ng-href="{{host}}/auth/facebook" class="btn btn-block btn-social btn-facebook">
+                            <span class="fa fa-facebook"></span>
+                            Connexion Facebook
+                          </a>-->
+                          <!--<a ng-href="{{host}}/auth/twitter" class="btn btn-block btn-social btn-twitter">
+                            <span class="fa fa-twitter"></span>
+                            Connexion Twitter
+                          </a>
+                          <p style="text-align:center; margin-top: 5px">ou</p>-->
+                          <form class="form" role="form" ng-submit="login.login()" accept-charset="UTF-8" id="login-nav">
+                              <div class="form-group">
+                                <label class="sr-only" for="exampleInputEmail2">Adresse email</label>
+                                <input ng-model="email" type="email" class="form-control" id="exampleInputEmail2" placeholder="Adresse email" required>
+                              </div>
+                              <div class="form-group">
+                                <label class="sr-only" for="exampleInputPassword2">Mot de passe</label>
+                                <input ng-model="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Mot de passe" required>
+                                <div class="help-block text-right"><a href="">Mot de passe oublié ?</a></div>
+                              </div>
+                              <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Connexion</button>
+                              </div>
+                              <!--<a ng-href="{{host}}/auth/google" class="form-group btn btn-block btn-social btn-google">
+                                Connexion Google
+                              </a>-->
+                          </form>
+                        </div>
+                        <div class="bottom text-center">
+                          Nouveau ? <a ng-href="#/register"><b>Inscrivez-vous</b></a>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+              </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right animate" ng-show="LS.user">
+              <li class="dropdown" ng-controller="NavCtrl as nav">
+                <a class="dropdown-toggle" data-toggle="dropdown">Profil <span class="caret"></span></a>
+                <ul id="nav-dp" class="dropdown-menu">
+                  <li ng-show="LS.user.role === 'admin'"><a ng-href="#/admin/set-admin">Ajouter un administrateur</a></li>
+                  <li ng-show="LS.user.role === 'admin'"><a ng-href="#/admin/submited-videos">Valider les vidéos</a></li>
+                  <li><a ng-href="#/profil">Modifier mes informations</a></li>
+                  <li><a style="cursor:pointer" ng-click="nav.logout()">Se déconnecter</a></li>
+                </ul>
+              </li>
+            </ul>
+
+          </div>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div ng-view class="animate"></div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <p><span class="glyphicon glyphicon-fire"></span> Archi-Insurection | LutteTube | 2016 | version 0.1.0 - BETA - <a href="mailto:contact@luttetube.fr">contact@luttetube.fr</a> - <a ng-href="#/how">Fonctionnement de LutteTube</a></p>
+      </div>
+    </div>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-79940265-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <script src="bower_components/ngmap/build/scripts/ng-map.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-recaptcha/release/angular-recaptcha.js"></script>
+    <!-- endbower -->
+    <script src="bower_components/angular-i18n/angular-locale_fr-fr.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/playlist.js"></script>
+    <script src="scripts/controllers/player.js"></script>
+    <script src="scripts/controllers/movies.js"></script>
+    <script src="scripts/controllers/ltMovies.js"></script>
+    <script src="scripts/controllers/ltPlaylists.js"></script>
+    <script src="scripts/directives/backButton.js"></script>
+    <script src="scripts/controllers/help.js"></script>
+    <script src="scripts/controllers/how.js"></script>
+    <script src="scripts/controllers/docPlaylists.js"></script>
+    <script src="scripts/controllers/add.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/nav.js"></script>
+    <script src="scripts/controllers/register.js"></script>
+    <script src="scripts/controllers/header.js"></script>
+    <script src="scripts/controllers/admin/submitedVideos.js"></script>
+    <script src="scripts/controllers/admin/setAdmin.js"></script>
+    <!-- endbuild -->
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script
+      src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit"
+      async defer
+    ></script>
+
+</body>
+</html>
