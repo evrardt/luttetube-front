@@ -39,7 +39,7 @@ angular.module('luttetubeApp')
                 "url": "images/marker2.png"
             };
 
-            //$scope.googleMapsUrl = "https://maps.google.com/maps/api/js?key="+CONFIG.YOUTUBE_API_KEY;
+            //$scope.googleMapsUrl = "https://maps.google.com/maps/api/js?key="+CONFIG.GOOGLE_API_KEY;
 
             $scope.$watch("LS.init", function() {
               $scope.markerPlace = angular.copy($rootScope.LS.lutte.place);

@@ -23,7 +23,7 @@ angular
   ])
   .constant('CONFIG', {
     'HOST' : 'http://localhost:3001',
-    'YOUTUBE_API_KEY' : 'AIzaSyDrNpz22gF7QK2WJwjIKNBcJF3BabehGZQ',
+    'GOOGLE_API_KEY' : 'AIzaSyDrNpz22gF7QK2WJwjIKNBcJF3BabehGZQ',
     'MOVIES' : [
       {
         'title' : 'Merci patron !',

@@ -31,7 +31,7 @@ angular.module('luttetubeApp')
           $scope.data = [];
           $rootScope.page = "home";
 
-          $scope.googleMapsUrl = "https://maps.google.com/maps/api/js?key="+CONFIG.YOUTUBE_API_KEY;
+          $scope.googleMapsUrl = "https://maps.google.com/maps/api/js?key="+CONFIG.GOOGLE_API_KEY;
 
           $scope.marker = {
               "scaledSize": [24, 24],
