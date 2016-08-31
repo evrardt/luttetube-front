@@ -22,8 +22,8 @@ angular
     'vcRecaptcha'
   ])
   .constant('CONFIG', {
-    'HOST' : 'https://luttetube.fr',
-    'YOUTUBE_API_KEY' : 'AIzaSyDrNpz22gF7QK2WJwjIKNBcJF3BabehGZQ',
+    'HOST' : 'http://localhost:3001',
+    'GOOGLE_API_KEY' : 'AIzaSyDrNpz22gF7QK2WJwjIKNBcJF3BabehGZQ',
     'MOVIES' : [
       {
         'title' : 'Merci patron !',
