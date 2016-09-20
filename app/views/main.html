@@ -1,33 +1,35 @@
 <div class="row">
   <div class="jumbotron">
     <h1>On lache rien !</h1>
-    <p>LutteTube c'est quoi ? Un référenceur de vidéos concernant la lutte contre le système capitaliste ! Un endroit ou vous trouverez à la fois des documentaires sur notre monde, des témoignagnes de luttes sociales et bien plus encore ...</p>  
+    <p>LutteTube c'est quoi ? Un référenceur de vidéos concernant la lutte contre le système capitaliste ! Un endroit où vous trouverez à la fois des documentaires sur notre monde, des témoignages de luttes sociales et bien plus encore ...</p>  
   </div>
 </div>
 <div class="ngmap" map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{googleMapsUrl}}">
   <ng-map center="46.2830792,2.041452"  zoom="5" max-zoom="8" min-zoom="2">
-    <marker icon="{{marker}}" ng-repeat="p in LS.lutte.place" position="{{p.location.lat}},{{p.location.lng}}" id={{p.city}} title="{{p.city}}" on-click="main.goToPlace()"></marker>
+    <span ng-repeat="channel in channels">
+      <marker icon="{{marker}}" ng-show="p.location" ng-repeat="p in channel.place" position="{{p.location.lat}},{{p.location.lng}}" id={{p.city}} title="{{p.city}}" on-click="main.goToPlace(channel.name)"></marker>
+    </span>
   </ng-map>
 </div>
-<div class="row bordered">
+<div class="row bordered" ng-repeat="channel in channels">
   <h4 class="well well-sm">
-    Playlists LutteTube
-    <select class="form-control inline more" ng-model="LS.lutte.display">
+    {{channel.title}}
+    <select class="form-control inline more" ng-model="channel.display">
       <option value="category">Dernières catégories</option>
       <option value="date">Dernières ajoutées</option>
     </select>
-    <button class="btn btn-default more" ng-click="main.go('/playlists')">Voir plus</button>
+    <button class="btn btn-default more" ng-click="main.go('/playlists/'+channel.name)">Voir plus</button>
   </h4>
-  <div class="col-md-3 thumbBlock animate" ng-repeat="item in LS.lutte.type | limitTo:4" ng-show="LS.lutte.display === 'category'">
-    <a href="#/playlists" ng-click="LS.lutte.typeFilter = item; LS.lutte.placeFilter = ''" class="thumb">
-      <img ng-src="{{lutteThumbnails[$index]}}">
+  <div class="col-md-3 thumbBlock animate" ng-repeat="item in channel.playlistCategories | limitTo:4" ng-show="channel.display === 'category'">
+    <a ng-href="#/playlists/{{channel.name}}" ng-click="channel.typeFilter = item.type; channel.placeFilter = ''" class="thumb">
+      <img ng-src="{{item.thumbnail}}">
       <div>
-          <div class="typeIndex">{{item}}</div>
+          <div class="typeIndex">{{item.type}}</div>
       </div>
     </a>
   </div>
-  <div class="col-md-3 thumbBlock animate" ng-repeat="item in LS.lutte.playlists | limitTo:4" ng-show="LS.lutte.display === 'date'">
-    <a href="#/playlist/lutte/{{item.id}}" ng-click="LS.lutte.placeFilter = ''" class="thumb">
+  <div class="col-md-3 thumbBlock animate" ng-repeat="item in channel.playlists" ng-show="channel.display === 'date'">
+    <a ng-href="#/playlist/{{channel.name}}/{{item._id}}" ng-click="channel.placeFilter = ''" class="thumb">
       <img ng-src="{{item.thumbnail}}">
       <div>
           <div ng-if="item.date" class="date">
@@ -38,59 +40,10 @@
             <div ng-if="item.date">
               <div class="typeDated">{{item.type}}</div>
             </div>
-            <div ng-if="!item.date" ng-class="{type: true, notDated: (item.monthly != false && item.monthly != true)}">{{item.type}}</div>
-            <div ng-if="item.place" ng-class="{place: true, notDated: (item.monthly != false && item.monthly != true)}">{{item.place}}</div>
+            <div ng-if="!item.date" ng-class="{docType: channel.name === 'doc', type: true, notDated: (item.monthly != false && item.monthly != true)}">{{item.type}}</div>
+            <div ng-if="item.place" ng-class="{docPlace: channel.name === 'doc', place: channel.name !== 'doc', notDated: (item.monthly != false && item.monthly != true)}">{{item.place}}</div>
           </div>
       </div>
     </a>
   </div>
 </div>
-<div class="row bordered">
-  <h4 class="well well-sm">
-    Documentaires LutteTube
-    <select class="form-control inline more" ng-model="LS.doc.display">
-      <option value="category">Dernières catégories</option>
-      <option value="date">Derniers ajoutés</option>
-    </select>
-    <button class="btn btn-default more" ng-click="main.go('/doc')">Voir plus</button>
-  </h4>
-  <div class="col-md-3 thumbBlock" ng-repeat="item in LS.doc.type | limitTo:4" ng-show="LS.doc.display === 'category'">
-    <a href="#/doc" ng-click="LS.doc.typeFilter = item; LS.doc.placeFilter = ''" class="thumb">
-      <img ng-src="{{docThumbnails[$index]}}">
-      <div>
-          <div class="typeIndex">{{item}}</div>
-      </div>
-    </a>
-  </div>
-  <div class="col-md-3 thumbBlock animate-show" ng-repeat="item in LS.doc.playlists | limitTo:4 | orderBy:reverse:true" ng-show="LS.doc.display === 'date'">
-    <a href="#/playlist/doc/{{item.id}}" class="thumb">
-      <img ng-src="{{item.thumbnail}}">
-      <div>
-          <div ng-if="item.date" class="date">
-            <div class="month" ng-class="{monthly:item.monthly}">{{item.date | date:'MMM'}}</div>
-            <div ng-if="!item.monthly" class="day">{{item.date | date:'d'}}</div>
-          </div>
-          <div ng-class="{rightLabel:item.date}">
-            <div ng-if="item.date">
-              <div class="typeDated">{{item.type}}</div>
-            </div>
-            <div ng-if="!item.date" class="docType" ng-class="{type: true, notDated: (item.monthly != false && item.monthly != true)}">{{item.type}}</div>
-            <div ng-if="item.place" class="docPlace" ng-class="{notDated: (item.monthly != false && item.monthly != true)}">{{item.place}}</div>
-          </div>
-      </div>
-    </a>
-  </div>
-</div>
-<!--<div class="row bordered">
-  <h4 class="well well-sm">Films LutteTube <button class="btn btn-default more" ng-click="go('/movies')">Voir plus</button></h3>
-  <div class="col-md-3 thumbBlock" ng-repeat="item in config.MOVIES | limitTo:4">
-    <a href="#/movies/{{item.label}}" class="thumb">
-      <img ng-src="{{item.thumbnail}}">
-      <div class="moviesIndex">
-          <div><b>Film : </b>{{ item.title }}</div>
-          <div><b>Catégorie : </b>{{ item.category }}</div>
-          <div><b>Durée : </b>{{ item.duration }}</div>
-      </div>
-    </a>
-  </div>
-</div>-->

@@ -28,7 +28,6 @@ angular.module('luttetubeApp')
         NgMap
       ) {
           $scope.config = CONFIG;
-          $scope.data = [];
           $rootScope.page = "home";
 
           $scope.googleMapsUrl = "https://maps.google.com/maps/api/js?key="+CONFIG.GOOGLE_API_KEY;
@@ -38,43 +37,104 @@ angular.module('luttetubeApp')
               "url": "images/marker1.png"
           };
 
-          $scope.lutteThumbnails = [];
-          $scope.docThumbnails = [];
+          $scope.channels = [];
 
-          $scope.$watch("LS.init", function() {
-            if ($rootScope.LS.init) {
-              for (var i in $rootScope.LS.lutte.type) {
-                for (var j in $rootScope.LS.lutte.playlists) {
-                  if ($rootScope.LS.lutte.playlists[j].type === $rootScope.LS.lutte.type[i] && $scope.lutteThumbnails.indexOf($rootScope.LS.lutte.playlists[j].thumbnail) === -1) {
-                    $scope.lutteThumbnails.push($rootScope.LS.lutte.playlists[j].thumbnail);
-                    break;
-                  } 
-                }
-              }
-              for (i in $rootScope.LS.doc.type) {
-                for (j in $rootScope.LS.doc.playlists) {
-                  if ($rootScope.LS.doc.playlists[j].type === $rootScope.LS.doc.type[i] && $scope.docThumbnails.indexOf($rootScope.LS.doc.playlists[j].thumbnail) === -1) {
-                    $scope.docThumbnails.push($rootScope.LS.doc.playlists[j].thumbnail);
-                    break;
-                  } 
-                }
-              }
+          var that = this;
+
+          $scope.$watch("LS.channels", function() {
+            if ($rootScope.LS.channels) {
+              $scope.channels = angular.copy($rootScope.LS.channels);
+              that.getTypes(0);
             }
           });
 
-          this.goToPlace = function(id) {
-            $rootScope.LS.lutte.typeFilter = "";
-            for (var i in $rootScope.LS.lutte.place) {
-              if ($rootScope.LS.lutte.place[i].location.lat.toFixed(2) === id.latLng.toJSON().lat.toFixed(2) && $rootScope.LS.lutte.place[i].location.lng.toFixed(2) === id.latLng.toJSON().lng.toFixed(2)) {
-                $rootScope.LS.lutte.placeFilter = $rootScope.LS.lutte.place[i].city;
-              }
+          this.getTypes = function(channelIndex) {
+            if (channelIndex+1 <= $rootScope.LS.channels.length) {
+              $http({
+                  method: 'GET',
+                  url: CONFIG.HOST+"/api/types/channel/"+$rootScope.LS.channels[channelIndex].name
+              }).then(function successCallback(response) {
+                  $scope.channels[channelIndex].type = response.data;
+                  $scope.channels[channelIndex].display = 'date';
+                  $scope.channels[channelIndex].thumbnails = [];
+                  that.getTypes(channelIndex+1);
+              }, function errorCallback(response) {
+                  console.log(response);
+              });
+            } else {
+              that.getPlace(0);
             }
-            $location.path('/playlists');
+          }
+
+          this.getPlace = function(channelIndex) {
+            if (channelIndex+1 <= $rootScope.LS.channels.length) {
+              $http({
+                  method: 'GET',
+                  url: CONFIG.HOST+"/api/places/channel/"+$rootScope.LS.channels[channelIndex].name
+              }).then(function successCallback(response) {
+                  $scope.channels[channelIndex].place = response.data;
+                  that.getPlace(channelIndex+1);
+              }, function errorCallback(response) {
+                  console.log(response);
+              });
+            } else {
+              that.getPlaylists(0);
+            }
           };
 
-          this.go = function(route) { 
-            $rootScope.LS.lutte.typeFilter = ""; 
-            $rootScope.LS.lutte.placeFilter = ""; 
+          this.getPlaylists = function(channelIndex) {
+            if (channelIndex+1 <= $rootScope.LS.channels.length) {
+              $rootScope.LS.channels[channelIndex].placeFilter = "";
+              $rootScope.LS.channels[channelIndex].typeFilter = "";
+              $http({
+                  method: 'GET',
+                  url: CONFIG.HOST+"/api/playlists/channel/"+$rootScope.LS.channels[channelIndex].name+"/0/4"
+              }).then(function successCallback(response) {
+                  $scope.channels[channelIndex].playlists = response.data;
+                  that.getPlaylists(channelIndex+1);
+              }, function errorCallback(response) {
+                  console.log(response);
+              });
+            } else {
+              that.getPlaylistsCategory(0)
+            }
+          };
+
+          this.getPlaylistsCategory = function(channelIndex) {
+            if (channelIndex+1 <= $rootScope.LS.channels.length) {
+              $http({
+                  method: 'GET',
+                  url: CONFIG.HOST+"/api/playlists/channel/"+$rootScope.LS.channels[channelIndex].name+"/category"
+              }).then(function successCallback(response) {
+                  $scope.channels[channelIndex].playlistCategories = response.data;
+                  that.getPlaylistsCategory(channelIndex+1);
+              }, function errorCallback(response) {
+                  console.log(response);
+              });
+            } else {
+              $rootScope.LS.init = true;
+            }
+          }
+
+          this.goToPlace = function(channelName) {
+            for (var i in $rootScope.LS.channels) {
+              if ($rootScope.LS.channels[i].name === channelName) {
+                $rootScope.LS.channels[i].typeFilter = "";
+                for (var j in $scope.channels[i].place) {
+                  if ($scope.channels[i].place[j].location.lat.toFixed(2) === id.latLng.toJSON().lat.toFixed(2) && $scope.channels[i].place[j].location.lng.toFixed(2) === id.latLng.toJSON().lng.toFixed(2)) {
+                    $rootScope.LS.channels[i].placeFilter = $scope.channels[i].place[j].city;
+                  }
+                }
+                $location.path('/playlists');
+              }
+            }
+          };
+
+          this.go = function(route) {
+            for (var i in $rootScope.LS.channels) {
+              $rootScope.LS.channels[i].typeFilter = ""; 
+              $rootScope.LS.channels[i].placeFilter = ""; 
+            }
             $location.path(route); 
           }; 
       }]);

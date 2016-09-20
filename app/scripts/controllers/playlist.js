@@ -25,38 +25,45 @@ angular.module('luttetubeApp')
         $sce, 
         CONFIG
       ) {
-          $scope.config = CONFIG;
-          $scope.$location = $location;
-          $scope.id = $routeParams.id;
-          
-          $scope.title = "";
+            $scope.config = CONFIG;
+            $scope.$location = $location;
+            $scope.id = $routeParams.id;
+            
+            $scope.title = "";
 
-            $scope.$watch("LS.init", function() {
-                if ($routeParams.type === 'lutte') {
-                    var playlists = angular.copy($rootScope.LS.lutte.playlists);
-                } else if ($routeParams.type === 'doc') {
-                    playlists = angular.copy($rootScope.LS.doc.playlists);
-                }
-                $scope.type = $routeParams.type;
-                for (var i in playlists) {
-                    if (playlists[i].id === $routeParams.id) {
-                        if ($routeParams.type === 'lutte') {
-                            $scope.videos = [];
-                            for (var j in $rootScope.LS.lutte.videos) {
-                                if ($rootScope.LS.lutte.videos[j].playlistId === $scope.id) {
-                                    $scope.videos.push($rootScope.LS.lutte.videos[j]);
-                                }
-                            }
-                        } else if ($routeParams.type === 'doc') {
-                            $scope.videos = [];
-                            for (j in $rootScope.LS.doc.videos) {
-                                if ($rootScope.LS.doc.videos[j].playlistId === $scope.id) {
-                                    $scope.videos.push($rootScope.LS.doc.videos[j]);
-                                }
-                            }
-                        }
-                        $scope.title = playlists[i].title;
-                    }
-                }
+            $scope.index = 0;
+            $scope.offset = 20;
+
+            this.getVideo = function(index, offset) {
+                var url = CONFIG.HOST+"/api/videos/playlist/"+$scope.id+"/"+$scope.index+"/"+$scope.offset;
+                $http({
+                    method: 'GET',
+                    url: url
+                }).then(function successCallback(response) {
+                    $scope.videos = response.data;
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+            }
+
+            this.getVideo();
+            
+            $http({
+                method: 'GET',
+                url: CONFIG.HOST+"/api/playlists/"+$scope.id
+            }).then(function successCallback(response) {
+                $scope.title = response.data.title;
+            }, function errorCallback(response) {
+                console.log(response);
             });
+
+            this.previous = function() {
+              $scope.index -= 20;
+              this.getVideo();
+            }
+
+            this.next = function() {
+              $scope.index += 20;
+              this.getVideo();
+            }
       }]);

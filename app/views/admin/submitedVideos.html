@@ -1,34 +1,39 @@
 <h4>Vidéos soumises à approbation :</h4><hr/>
 <div class="form-group">
-    <button type="button" class="btn btn-default" ng-click="displayValidate = false">En attente d'approbations <span class="badge">{{(submissions | filter:{active:false}).length}}</span></button>
-    <button type="button" class="btn btn-default" ng-click="displayValidate = true">Approuvées <span class="badge">{{(submissions | filter:{active:true}).length}}</span></button>
+    <button type="button" class="btn btn-default" ng-click="statusDisplayed = 0">En attente d'approbations <span class="badge">{{(submissions | filter:{status:0}).length}}</span></button>
+    <button type="button" class="btn btn-default" ng-click="statusDisplayed = 1">Approuvées <span class="badge">{{(submissions | filter:{status:1}).length}}</span></button>
+    <button type="button" class="btn btn-default" ng-click="statusDisplayed = 2">Refusées <span class="badge">{{(submissions | filter:{status:2}).length}}</span></button>
+    <button type="button" class="btn btn-default" ng-click="statusDisplayed = 3">A ajouter via Youtube <span class="badge">{{(submissions | filter:{status:3}).length}}</span></button>
 </div>
 <div class="well table-responsive table-striped table-hover table-condensed">
     <table class="table">
         <thead>
             <tr>
-                <th>Type</th>
+                <th>Catégorie</th>
                 <th>Playlist</th>
                 <th>Lien</th>
-                <th>Preview</th>
+                <th>Titre</th>
+                <th>Durée</th>
+                <th>Embed</th>
+                <th>Thumbnail</th>
                 <th>Validation</th>
             </tr>
         </thead>
         <tbody>
-                <tr ng-repeat="(key, submission) in submissions | filter:{active:displayValidate}">
-                    <td>{{submission.type}}</td>
-                    <td>{{submission.category}} - {{submission.playlist}}</td>
-                    <td><a ng-href="{{submission.link}}" target="_BLANK">{{submission.link}}</a></td>
-                    <td>
-                        <iframe width="200" height="110" ng-src="{{submission.embed}}" frameborder="0" allowfullscreen></iframe>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-success" ng-click="submitedVideos.valid(submissions.indexOf(submission), true)" ng-show="!submission.active"><span class="glyphicon glyphicon-ok"></span></button>
-                        <button type="button" class="btn btn-default" ng-click="submitedVideos.valid(submissions.indexOf(submission), false)" ng-show="submission.active"><span class="glyphicon glyphicon-arrow-left"></span></button>
-                        <button type="button" class="btn btn-social-icon btn-google" ng-click="submitedVideos.youtubeTransfert(key)" ng-show="submission.active"><span class="fa fa-google"></span></button>
-                        <button type="button" class="btn btn-danger" ng-click="submitedVideos.delete(submissions.indexOf(submission))"><span class="glyphicon glyphicon-remove"></span></button>
-                    </td>
-                </tr>
+            <tr ng-repeat="(key, submission) in submissions | filter:{status:statusDisplayed}">
+                <td>{{submission.type}}</td>
+                <td><input class="form-control" type="text" ng-model="submission.playlist"/></td>
+                <td><a ng-href="{{submission.link}}" target="_BLANK">{{submission.link}}</a></td>
+                <td><input class="form-control" type="text" ng-model="submission.title"/></td>
+                <td><input class="form-control" type="text" ng-model="submission.duration"/></td>
+                <td><input class="form-control" type="text" ng-model="submission.embed"/></td>
+                <td><input class="form-control" type="text" ng-model="submission.thumbnail"/></td>
+                <td>
+                    <button type="button" class="btn btn-success" ng-click="submitedVideos.updateStatus(submissions.indexOf(submission), 1)" ng-show="submission.status != 1"><span class="glyphicon glyphicon-ok"></span></button>
+                    <button type="button" class="btn btn-default" ng-click="submitedVideos.updateStatus(submissions.indexOf(submission), 0)" ng-show="submission.status != 0"><span class="glyphicon glyphicon-arrow-left"></span></button>
+                    <button type="button" class="btn btn-danger" ng-click="submitedVideos.updateStatus(submissions.indexOf(submission), 2)" ng-show="submission.status != 2"><span class="glyphicon glyphicon-remove"></span></button>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>

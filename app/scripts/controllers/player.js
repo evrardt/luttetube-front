@@ -26,5 +26,5 @@ angular.module('luttetubeApp')
         CONFIG
       ) {
           $scope.config = CONFIG;
-          $scope.url = $sce.trustAsResourceUrl("https://www.youtube-nocookie.com/embed/"+$location.path().replace('/player/', '')+"?rel=0");
+          $scope.url = $sce.trustAsResourceUrl("https://www.youtube-nocookie.com/embed/"+$routeParams.id+"?rel=0");
       }]);

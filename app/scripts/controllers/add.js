@@ -193,7 +193,7 @@ angular.module('luttetubeApp')
           type: type,
           newCategory: $scope.newCategory,
           newPlaylist: $scope.newPlaylist,
-          active: false
+          status: 0
         }
       })
       .then(function (response) {

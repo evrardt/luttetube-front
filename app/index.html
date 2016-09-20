@@ -48,8 +48,7 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li ng-class="{active:$root.page=='playlists'}"><a ng-href="#/playlists">Lutte</a></li>
-              <li ng-class="{active:$root.page=='doc'}"><a ng-href="#/doc">Documentaires</a></li>
+              <li ng-repeat="channel in $root.LS.channels" ng-class="{active:$root.page === channel.name}"><a ng-href="#/playlists/{{channel.name}}">{{channel.displayedName}}</a></li>
               <li ng-class="{active:$root.page=='help'}"><a ng-href="#/help">Contribuer</a></li>
             </ul>
 
@@ -173,6 +172,7 @@
     <script src="scripts/controllers/header.js"></script>
     <script src="scripts/controllers/admin/submitedVideos.js"></script>
     <script src="scripts/controllers/admin/setAdmin.js"></script>
+    <script src="scripts/controllers/playlists.js"></script>
     <!-- endbuild -->
 
     <script src="https://www.youtube.com/iframe_api"></script>

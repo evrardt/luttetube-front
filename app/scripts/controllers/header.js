@@ -13,140 +13,115 @@ angular.module('luttetubeApp')
         var that = this;
         $rootScope.LS = $localStorage;
 
-        var playlists = [];
+        /*var playlists = [];
         var type = [];
         var place = [];
         var placeFilter = "";
-        var typeFilter = "";
-
-        $rootScope.LS.doc = {
-            placeFilter: "",
-            typeFilter: "",
-            display: "date"
-        };
-        $rootScope.LS.lutte = {
-            placeFilter: "",
-            typeFilter: "",
-            display: "date"
-        };
+        var typeFilter = "";*/
 
         $rootScope.LS.init = false;
 
-        this.sortPlaylistsByDate = function() { 
-            /*$rootScope.LS.lutte.playlists.sort(function(a,b) { 
-                if (!b || !b.date) { 
-                    return 1; 
-                } 
-                if (!a || !a.date) { 
-                    return -1; 
-                } 
-                if (new Date(a.date).getTime() < new Date(b.date).getTime()) {
-                    return 1; 
-                }
-                if (new Date(a.date).getTime() > new Date(b.date).getTime()) {
-                    return -1; 
-                }
-                return 0; 
-            })*/
-        }; 
-
-        this.getTypes = function(item) {
+        this.getChannels = function() {
             $http({
                 method: 'GET',
-                url: CONFIG.HOST+"/api/"+item+"/types"
+                url: CONFIG.HOST+"/api/channels"
             }).then(function successCallback(response) {
-                for (var i in response.data) {
-                    type.push(response.data[i].type);
+                $rootScope.LS.channels = response.data;
+                for (var i in $rootScope.LS.channels) {
+                    $rootScope.LS.channels[i].placeFilter = "";
+                    $rootScope.LS.channels[i].typeFilter = "";
+                    $rootScope.LS.channels[i].display = "date";
                 }
-                that.getPlace(item);
+                //that.getTypes(0);
+                //$rootScope.LS.init = true;
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+        }
+
+        /*this.getTypes = function(channelIndex) {
+            $http({
+                method: 'GET',
+                url: CONFIG.HOST+"/api/types/channel/"+$rootScope.LS.channels[channelIndex].name
+            }).then(function successCallback(response) {
+                type = response.data;
+                that.getPlace(channelIndex);
             }, function errorCallback(response) {
                 console.log(response);
             });
         };
 
-        this.getPlace = function(item) {
+        this.getPlace = function(channelIndex) {
             $http({
                 method: 'GET',
-                url: CONFIG.HOST+"/api/"+item+"/places"
+                url: CONFIG.HOST+"/api/places/channel/"+$rootScope.LS.channels[channelIndex].name
             }).then(function successCallback(response) {
                 place = response.data;
-                that.getPlaylists(item);
+                that.getPlaylists(channelIndex);
             }, function errorCallback(response) {
                 console.log(response);
             });
         };
 
-        this.getPlaylists = function(item) {
+        this.getPlaylists = function(channelIndex) {
             $http({
                 method: 'GET',
-                url: CONFIG.HOST+"/api/"+item+"/playlists"
+                url: CONFIG.HOST+"/api/playlists/channel/"+$rootScope.LS.channels[channelIndex].name
             }).then(function successCallback(response) {
                 playlists = response.data;
-                if (item === "lutte") {
-                    $rootScope.LS.lutte.playlists = playlists;
-                    $rootScope.LS.lutte.type = type;
-                    $rootScope.LS.lutte.place = place;
 
+                $rootScope.LS.channels[channelIndex].playlists = playlists;
+                $rootScope.LS.channels[channelIndex].type = type;
+                $rootScope.LS.channels[channelIndex].place = place;
+
+                if (channelIndex+1 < $rootScope.LS.channels.length) {
                     playlists = [];
                     type = [];
                     place = [];
                     placeFilter = "";
                     typeFilter = "";
 
-                    that.getTypes("doc");
+                    that.getTypes(channelIndex+1);
                 } else {
-                    $rootScope.LS.doc.playlists = playlists;
-                    $rootScope.LS.doc.type = type;
-                    $rootScope.LS.doc.place = place;
-                    that.getVideos();
+                    that.getVideos(0);
                 }
             }, function errorCallback(response) {
                 console.log(response);
             });
         };
 
-        this.getVideos = function() {
-            $http({
-                method: 'GET',
-                url: CONFIG.HOST+"/api/lutte/videos"
-            }).then(function successCallback(response) {
-                $rootScope.LS.lutte.videos = response.data;
+        this.getVideos = function(channelIndex) {
+            if (channelIndex+1 < $rootScope.LS.channels.length) {
                 $http({
                     method: 'GET',
-                    url: CONFIG.HOST+"/api/doc/videos"
+                    url: CONFIG.HOST+"/api/videos/channel/"+$rootScope.LS.channels[channelIndex].name
                 }).then(function successCallback(response) {
-                    $rootScope.LS.doc.videos = response.data;
-                    that.getNumberLabel();
+                    $rootScope.LS.channels[channelIndex].videos = response.data;
+                    that.getVideos(channelIndex+1)
                 }, function errorCallback(response) {
-                console.log(response);
+                    console.log(response);
                 });
-            }, function errorCallback(response) {
-                console.log(response);
-            });
+            } else {
+                that.getNumberLabel();
+            }
+
+            
         };
 
         this.getNumberLabel = function() {
-            for (var i in $rootScope.LS.lutte.playlists) {
-                var cpt = 0;
-                for (var j in $rootScope.LS.lutte.videos) {
-                    if ($rootScope.LS.lutte.playlists[i].id === $rootScope.LS.lutte.videos[j].playlistId) {
-                        cpt++;
+            for (var i in $rootScope.LS.channels) {
+                for (var j in $rootScope.LS.channels[i].playlists) {
+                    var cpt = 0;
+                    for (var h in $rootScope.LS.channels[i].videos) {
+                        if ($rootScope.LS.channels[i].playlists[j].id === $rootScope.LS.channels[i].videos[h].playlistId) {
+                            cpt++;
+                        }
                     }
+                    $rootScope.LS.channels[i].playlists[j].count = cpt;
                 }
-                $rootScope.LS.lutte.playlists[i].count = cpt;
             }
-            for (i in $rootScope.LS.doc.playlists) {
-                cpt = 0;
-                for (j in $rootScope.LS.doc.videos) {
-                    if ($rootScope.LS.doc.playlists[i].id === $rootScope.LS.doc.videos[j].playlistId) {
-                        cpt++;
-                    }
-                }
-                $rootScope.LS.doc.playlists[i].count = cpt;
-            }
-            this.sortPlaylistsByDate();
             $rootScope.LS.init = true;
-        };
+        };*/
         
-        this.getTypes("lutte");
+        this.getChannels();
     }]);

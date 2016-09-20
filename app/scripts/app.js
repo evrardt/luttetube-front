@@ -71,7 +71,12 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/playlist/:type/:id', {
+      .when('/playlists/:channel', {
+        templateUrl: 'views/playlists.html',
+        controller: 'PlaylistsCtrl',
+        controllerAs: 'playlists'
+      })
+      .when('/playlist/:channel/:id', {
         templateUrl: 'views/playlist.html',
         controller: 'PlaylistCtrl',
         controllerAs: 'playlist'
@@ -85,11 +90,6 @@ angular
         templateUrl: 'views/player.html',
         controller: 'PlayerCtrl',
         controllerAs: 'player'
-      })
-      .when('/playlists', {
-        templateUrl: 'views/ltPlaylists.html',
-        controller: 'LTPlaylistsCtrl',
-        controllerAs: 'ltPlaylists'
       })
       .when('/movies', {
         templateUrl: 'views/ltMovies.html',
